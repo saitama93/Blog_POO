@@ -1,8 +1,5 @@
 <?php
 
-require_once('libraries/database.php');
-require_once('libraries/utils.php');
-
 /**
  * CE FICHIER DOIT AFFICHER UN ARTICLE ET SES COMMENTAIRES !
  * 
@@ -13,7 +10,13 @@ require_once('libraries/utils.php');
  * 
  * On va ensuite afficher l'article puis ses commentaires
  */
+require_once('libraries/database.php');
+require_once('libraries/utils.php');
+require_once('libraries/models/Article.php');
+require_once('libraries/models/Comment.php');
 
+$articleModel = new Article();
+$commentModel = new Comment();
 /**
  * 1. Récupération du param "id" et vérification de celui-ci
  */
@@ -37,7 +40,7 @@ if (!$article_id) {
  * jamais confiance à ce connard d'utilisateur ! :D
  */
 
- $article = findArticle($article_id);
+ $article = $articleModel->find($article_id);
 
 /**
  * 4. Récupération des commentaires de l'article en question
@@ -47,7 +50,7 @@ if (!$article_id) {
 // $query->execute(['article_id' => $article_id]);
 // $commentaires = $query->fetchAll();
 
-$commentaires = findAllComments($article_id);
+$commentaires = $commentModel->findAllWithArticle($article_id);
 
 /**
  * 5. On affiche 
