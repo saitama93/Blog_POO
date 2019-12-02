@@ -1,10 +1,9 @@
 <?php
 
-require_once('libraries/database.php');
+require_once('libraries/models/Model.php');
 
-class Comment
+class Comment extends Model
 {
-
     /**
      * Revoies la liste des commentaires de l'article en question
      * 
@@ -14,9 +13,7 @@ class Comment
     public function findAllWithArticle(int $article_id): array
     {
 
-        $pdo = getPdo();
-
-        $query = $pdo->prepare("SELECT * FROM comments WHERE article_id = :article_id  ORDER BY created_at DESC");
+        $query = $this->pdo->prepare("SELECT * FROM comments WHERE article_id = :article_id  ORDER BY created_at DESC");
         $query->execute(['article_id' => $article_id]);
         $commentaires = $query->fetchAll();
 
@@ -30,8 +27,7 @@ class Comment
      */
     public function find(int $id)
     {
-        $pdo = getPdo();
-        $query = $pdo->prepare('SELECT * FROM comments WHERE id = :id');
+        $query = $this->pdo->prepare('SELECT * FROM comments WHERE id = :id');
         $query->execute(['id' => $id]);
         $comment = $query->fetch();
 
@@ -45,8 +41,7 @@ class Comment
      */
     public function delete(int $id): void
     {
-        $pdo = getPdo();
-        $query = $pdo->prepare('DELETE FROM comments WHERE id = :id');
+        $query = $this->pdo->prepare('DELETE FROM comments WHERE id = :id');
         $query->execute(['id' => $id]);
     }
 
@@ -59,8 +54,7 @@ class Comment
      */
     public function insert(string $author, string $content, int $article_id): void
     {
-        $pdo = getPdo();
-        $query = $pdo->prepare('INSERT INTO comments SET author = :author, content = :content, article_id = :article_id, created_at = NOW()');
+        $query = $this->pdo->prepare('INSERT INTO comments SET author = :author, content = :content, article_id = :article_id, created_at = NOW()');
         $query->execute(compact('author', 'content', 'article_id'));
     }
 }
