@@ -6,7 +6,7 @@
  * On va donc vérifier que le paramètre "id" est bien présent en GET, qu'il correspond bien à un commentaire existant
  * Puis on le supprimera !
  */
-require_once('libraries/Controllers/Comment.php');
+require_once('libraries/autoload.php');
 
 $controller = new \Controllers\Comment();
 $controller->delete();

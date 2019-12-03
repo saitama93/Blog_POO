@@ -9,9 +9,8 @@
 
 use Models\Article;
 
-require_once('libraries/Controllers/Article.php');
+require_once('libraries/autoload.php');
 
- $controller = new \Controllers\Article();
+$controller = new \Controllers\Article();
 
- $controller->delete();
-
+$controller->delete();

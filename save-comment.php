@@ -13,7 +13,7 @@
  * 
  * Et enfin on pourra rediriger l'utilisateur vers l'article en question
  */
-require_once('libraries/Controllers/Comment.php');
+require_once('libraries/autoload.php');
 
 $controller = new \Controllers\Comment();
 $controller->insert();
